@@ -1,0 +1,138 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model permit_portal.Models.TouristPermit;
+
+@{
+    ViewData["Title"] = "Tourist Permit Application";
+}
+
+<style>
+    body {
+        background: #f6f7fb;
+        font-family: Arial, sans-serif;
+    }
+
+    .form-card {
+        background: #ffffff;
+        padding: 25px 35px;
+        border-radius: 12px;
+        max-width: 600px;
+        margin: 40px auto;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+
+        .form-card h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+    .form-group label {
+        font-weight: 600;
+        color: #444;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+        .form-control:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 6px rgba(74, 144, 226, 0.4);
+        }
+
+    .btn-submit {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        background-color: #4a90e2;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: 0.3s ease-in-out;
+    }
+
+        .btn-submit:hover {
+            background-color: #357abd;
+        }
+
+    .text-danger {
+        font-size: 14px;
+    }
+</style>
+
+<div class="form-card">
+    <h2>Tourist Permit Application Form</h2>
+
+    <form asp-action="Apply" method="post">
+        <div class="form-group mb-3">
+            <label asp-for="FullName"></label>
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Nationality"></label>
+            <input asp-for="Nationality" class="form-control" />
+            <span asp-validation-for="Nationality" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="ContactNumber"></label>
+            <input asp-for="ContactNumber" class="form-control" />
+            <span asp-validation-for="ContactNumber" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="PermitLocation"></label>
+            <select asp-for="PermitLocation" class="form-control">
+                <option value="">-- Select Location --</option>
+                <option>Annapurna Conservation Area</option>
+                <option>Sagarmatha National Park</option>
+                <option>Manaslu Conservation Area</option>
+                <option>Langtang National Park</option>
+            </select>
+            <span asp-validation-for="PermitLocation" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="VisitDate"></label>
+            <input asp-for="VisitDate" type="date" class="form-control" />
+            <span asp-validation-for="VisitDate" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="NumberOfPeople"></label>
+            <input asp-for="NumberOfPeople" type="number" class="form-control" />
+            <span asp-validation-for="NumberOfPeople" class="text-danger"></span>
+        </div>
+
+        <div class="form-group mb-3">
+            <label asp-for="Purpose"></label>
+            <textarea asp-for="Purpose" class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Submit Application</button>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
