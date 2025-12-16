@@ -1,0 +1,69 @@
+﻿@model List<permit_portal.Models.DomainModel.TouristPermit>
+
+@{
+}
+
+<div class="bg-secondary bg-opacity-10 py-2">
+	<div class="container">
+		<h1>Details of the Applicant</h1>
+	</div>
+</div>
+
+<div class="container py-5" >
+	@if(Model !=null && Model.Any())
+	{
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Fullname</th>
+					<th>Email</th>
+					<th>Nationality</th>
+					<th>Contact Number</th>
+					<th>Permit Location</th>
+					<th>Visit Date</th>
+					<th>NoOfPeople</th>
+					<th>Purpose of the visit</th>
+					<th>Actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				@foreach(var touristPermit in Model)
+				{
+					<tr>
+						<td>@touristPermit.Id</td>
+						<td>@touristPermit.FullName</td>
+						<td>@touristPermit.Email</td>
+						<td>@touristPermit.Nationality</td>
+						<td>@touristPermit.ContactNumber</td>
+						<td>@touristPermit.PermitLocation</td>
+						<td>@touristPermit.VisitDate</td>
+						<td>@touristPermit.NumberOfPeople</td>
+						<td>@touristPermit.Purpose</td>
+						<td>
+							<a 
+								asp-controller="TouristPermit"
+								asp-action="Edit" 
+								asp-route-id="@touristPermit.Id"
+							>Edit</a></td>
+						<td>
+							<a 
+								asp-areas=""
+								asp-controller="TouristPermit" 
+								asp-action="Delete" 
+								asp-route-id="@touristPermit.Id"
+							>Delete</a></td>
+					</tr>
+				}
+			</tbody>
+
+		</table>
+
+
+	}
+	else
+	{
+		<p>None has filled Application Form!</p>
+	}
+
+</div>

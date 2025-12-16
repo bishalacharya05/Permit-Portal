@@ -1,7 +1,18 @@
+using Microsoft.EntityFrameworkCore;
+using permit_portal.Data;
+
+
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+//Injection the db context class to the application so it can talk to the class
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+options.UseSqlServer(builder.Configuration.GetConnectionString("PermitDbConnectionString")));
+
+IServiceCollection serviceCollection = builder.Services.AddScoped<IEmailService, EmailServices>();
 
 var app = builder.Build();
 

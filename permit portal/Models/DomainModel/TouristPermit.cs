@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace permit_portal.Models
+namespace permit_portal.Models.DomainModel
 {
     public class TouristPermit
     {
