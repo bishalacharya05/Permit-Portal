@@ -54,6 +54,20 @@
         transition: background-color 0.3s ease;
     }
 
+    .btn-submit-delete{
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        background-color: #ff0000;
+        color: white;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+
         .btn-submit:hover {
             background-color: #357abd;
         }
@@ -66,7 +80,7 @@
 <div class="form-card">
     <h2>Tourist Permit Application Form</h2>
 
-    <form asp-action="Apply" method="post">
+    <form method="post">
         <div class="form-group mb-3">
             <label asp-for="FullName"></label>
             <input asp-for="FullName" class="form-control" />
@@ -120,7 +134,10 @@
             <textarea asp-for="Purpose" class="form-control"></textarea>
         </div>
 
-        <button type="submit" class="btn-submit">Submit Application</button>
+        <button type="submit" class="btn-submit">Update Application</button><br /> <br />
+
+        <button type="submit" class="btn-submit-delete"
+         asp-controller="TouristPermit" asp-action="Delete">Delete Application</button>
     </form>
 </div>
 
