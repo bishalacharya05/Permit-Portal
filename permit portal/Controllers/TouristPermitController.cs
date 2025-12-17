@@ -16,7 +16,7 @@ namespace permit_portal.Controllers
         }
 
         [HttpGet]
-        public IActionResult Apply()
+        public async Task<IActionResult> Apply()
         {
             return View();
         }
@@ -40,7 +40,7 @@ namespace permit_portal.Controllers
                 };
 
                 context.TouristPermits.Add(touristPermit);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
 
 
             }
@@ -63,26 +63,26 @@ namespace permit_portal.Controllers
             return RedirectToAction("Apply");
         }
 
-        public IActionResult Details()
+        public async Task<IActionResult> Details()
         {
             //Using dbcontext to read the TouristsPermits
-            var touristPermits = context.TouristPermits.ToList();
+            var touristPermits = await context.TouristPermits.ToListAsync();
             //passint the touristPermits inside the view() because we can access the data of the TouristPermit table from the database
             return View(touristPermits);
         }
 
         [HttpGet]
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             //In this get part we get the id of the applicant  and store it to the variable
-            var touristPermit = context.TouristPermits.Find(id);
+            var touristPermit = await context.TouristPermits.FindAsync(id);
 
             if (touristPermit == null)
             {
                 return NotFound();
             }
             // Mapping the data to the domain model to the view model so we can pass the data in the input field of the edit form
-            var viewModel = new TouristPermitViewModel
+            var viewModel = new TouristPermitEditVM
             {
                 FullName = touristPermit.FullName,
                 Email = touristPermit.Email,
@@ -99,14 +99,14 @@ namespace permit_portal.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(TouristPermitViewModel viewmodel)
+        public async Task<IActionResult> Edit(TouristPermitEditVM viewmodel)
         {
 
             if (!ModelState.IsValid)
             {
                 return View(viewmodel);
             }
-            var touristPermit = context.TouristPermits.Find(viewmodel.Id);
+            var touristPermit = await context.TouristPermits.FindAsync(viewmodel.Id);
 
             if (touristPermit == null)
             {
@@ -124,7 +124,7 @@ namespace permit_portal.Controllers
 
 
             context.TouristPermits.Update(touristPermit);
-            context.SaveChanges();
+            await context.SaveChangesAsync();
             return RedirectToAction("Details");
 
 
@@ -132,16 +132,15 @@ namespace permit_portal.Controllers
         
 
         [HttpPost]
-        public IActionResult Delete (int id)
+        public async Task<IActionResult> Delete (TouristPermitEditVM viewModel)
         {
-            var touristPermit = context.TouristPermits.Find(id);
+            var touristPermit = await context.TouristPermits.FindAsync(viewModel.Id);
 
             if(touristPermit!=null)
             {
                 context.TouristPermits.Remove(touristPermit);
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return RedirectToAction("Details");
-
             }
 
             return RedirectToAction("Details");

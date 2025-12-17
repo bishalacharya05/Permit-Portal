@@ -1,4 +1,4 @@
-﻿@model permit_portal.Models.ViewModel.TouristPermitViewModel
+﻿@model permit_portal.Models.ViewModel.TouristPermitEditVM
 
 @{
 }
@@ -81,6 +81,7 @@
     <h2>Tourist Permit Application Form</h2>
 
     <form method="post">
+        <input type="hidden" asp-for="Id"/>
         <div class="form-group mb-3">
             <label asp-for="FullName"></label>
             <input asp-for="FullName" class="form-control" />
