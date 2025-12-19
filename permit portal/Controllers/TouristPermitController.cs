@@ -3,6 +3,7 @@ using permit_portal.Models.DomainModel;
 using permit_portal.Models.ViewModel;
 using permit_portal.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 namespace permit_portal.Controllers
 {
     public class TouristPermitController : Controller
@@ -15,13 +16,16 @@ namespace permit_portal.Controllers
             this.context = context;
         }
 
+
         [HttpGet]
+        [Authorize(Roles ="Admin,User")]
         public async Task<IActionResult> Apply()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin,User")]
         public async Task<IActionResult> Apply(TouristPermitViewModel touristPermitViewModel)
         {
             if (ModelState.IsValid)
@@ -63,6 +67,7 @@ namespace permit_portal.Controllers
             return RedirectToAction("Apply");
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details()
         {
             //Using dbcontext to read the TouristsPermits
@@ -72,6 +77,7 @@ namespace permit_portal.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id)
         {
             //In this get part we get the id of the applicant  and store it to the variable
@@ -99,6 +105,7 @@ namespace permit_portal.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(TouristPermitEditVM viewmodel)
         {
 
@@ -132,6 +139,7 @@ namespace permit_portal.Controllers
         
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete (TouristPermitEditVM viewModel)
         {
             var touristPermit = await context.TouristPermits.FindAsync(viewModel.Id);

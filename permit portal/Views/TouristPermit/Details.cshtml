@@ -1,63 +1,94 @@
 ﻿@model List<permit_portal.Models.DomainModel.TouristPermit>
 
 @{
+    ViewData["Title"] = "Applicants";
 }
 
-<div class="bg-secondary bg-opacity-10 py-2">
-	<div class="container">
-		<h1>Details of the Applicant</h1>
-	</div>
+<div class="bg-success bg-opacity-10 py-3 mb-4">
+    <div class="container">
+        <h2 class="fw-bold text-success mb-0">
+            Applicant Details
+        </h2>
+        <small class="text-muted">Tourism Permit Applications</small>
+    </div>
+</div>
+<div class="container pb-5">
+    @if (Model != null && Model.Any())
+    {
+        <div class="card shadow border-0">
+            <div class="card-body p-4">
+
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover align-middle fs-6">
+                        <thead class="table-success fs-6">
+                            <tr>
+                                <th class="py-3">ID</th>
+                                <th class="py-3">Full Name</th>
+                                <th class="py-3">Email</th>
+                                <th class="py-3">Nationality</th>
+                                <th class="py-3">Contact</th>
+                                <th class="py-3">Location</th>
+                                <th class="py-3">Visit Date</th>
+                                <th class="py-3 text-center">People</th>
+                                <th class="py-3">Purpose</th>
+                                <th class="py-3 text-center">Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var touristPermit in Model)
+                            {
+                                <tr>
+                                    <td class="py-3">@touristPermit.Id</td>
+                                    <td class="py-3 fw-semibold">@touristPermit.FullName</td>
+                                    <td class="py-3">@touristPermit.Email</td>
+
+                                    <td class="py-3">
+                                        <span class="badge bg-secondary fs-6">
+                                            @touristPermit.Nationality
+                                        </span>
+                                    </td>
+
+                                    <td class="py-3">@touristPermit.ContactNumber</td>
+
+                                    <td class="py-3">
+                                        <span class="badge bg-info text-dark fs-6">
+                                            @touristPermit.PermitLocation
+                                        </span>
+                                    </td>
+
+                                    <td class="py-3">
+                                        @touristPermit.VisitDate.ToString("yyyy-MM-dd")
+                                    </td>
+
+                                    <td class="py-3 text-center fw-semibold">
+                                        @touristPermit.NumberOfPeople
+                                    </td>
+
+                                    <td class="py-3">@touristPermit.Purpose</td>
+
+                                    <td class="py-3 text-center">
+                                        <a class="btn btn-sm btn-outline-primary px-3"
+                                           asp-controller="TouristPermit"
+                                           asp-action="Edit"
+                                           asp-route-id="@touristPermit.Id">
+                                            Edit
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info fs-5">
+            No applications have been submitted yet.
+        </div>
+    }
 </div>
 
-<div class="container py-5" >
-	@if(Model !=null && Model.Any())
-	{
-		<table class="table">
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Fullname</th>
-					<th>Email</th>
-					<th>Nationality</th>
-					<th>Contact Number</th>
-					<th>Permit Location</th>
-					<th>Visit Date</th>
-					<th>NoOfPeople</th>
-					<th>Purpose of the visit</th>
-					<th>Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				@foreach(var touristPermit in Model)
-				{
-					<tr>
-						<td>@touristPermit.Id</td>
-						<td>@touristPermit.FullName</td>
-						<td>@touristPermit.Email</td>
-						<td>@touristPermit.Nationality</td>
-						<td>@touristPermit.ContactNumber</td>
-						<td>@touristPermit.PermitLocation</td>
-						<td>@touristPermit.VisitDate</td>
-						<td>@touristPermit.NumberOfPeople</td>
-						<td>@touristPermit.Purpose</td>
-						<td>
-							<a 
-								asp-controller="TouristPermit"
-								asp-action="Edit" 
-								asp-route-id="@touristPermit.Id"
-							>Edit</a></td>
-
-					</tr>
-				}
-			</tbody>
-
-		</table>
-
-
-	}
-	else
-	{
-		<p>None has filled Application Form!</p>
-	}
-
-</div>
